@@ -23,7 +23,7 @@ typedef short   int16;
 typedef int     int32;
 #if defined(_WIN32) || defined(_WIN64)
     typedef __int64     int64;
-#elif defined (__linux__) || defined (__CYGWIN__) || defined (__MACH__)
+#elif defined (__linux__) || defined (__CYGWIN__) || defined (__APPLE__)
     typedef signed long long    int64;
 #endif
 
@@ -33,7 +33,7 @@ typedef unsigned int        uint32;
 
 #if defined(_WIN32) || defined(_WIN64)
     typedef unsigned __int64    uint64;
-#elif defined (__linux__) || defined (__CYGWIN__) || defined (__MACH__)
+#elif defined (__linux__) || defined (__CYGWIN__) || defined (__APPLE__)
     typedef unsigned long long  uint64;
 #endif
 
