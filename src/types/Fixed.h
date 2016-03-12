@@ -34,7 +34,7 @@ public:
     explicit Fixed(uint32 value = 0) : _high(value >> 16), _low(value & 0xFFFF) {}
     explicit Fixed(int16 high = 0, uint16 low = 0) : _high(high), _low(low) {}
 
-    string version() const {
+    string toString() const {
 #if defined (__CYGWIN__)
       std::ostringstream os ;
       os << _high << "." << _low;
