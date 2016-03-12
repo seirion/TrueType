@@ -17,22 +17,45 @@
 #ifndef _BFIXED_H_
 #define _BFIXED_H_
 
+#include <cstdio>
 #include <string>
 #include "base/types.h"
+#include "base/ReadWrite.h"
 
-using namespace std;
-using namespace babo;
+#if defined(_WIN32) || defined(_WIN64)
+    #include <Winsock2.h>
+#elif defined (__linux__) || defined (__CYGWIN__) || defined (__APPLE__)
+    #include <netinet/in.h>
+#endif
 
 #if defined (__CYGWIN__)
     #include <sstream>
 #endif
 
+using namespace std;
+using namespace babo;
+
 namespace babo {
 
-class Fixed {
+class Fixed : public ReadWrite {
 public:
     explicit Fixed(uint32 value = 0) : _high(value >> 16), _low(value & 0xFFFF) {}
-    explicit Fixed(int16 high = 0, uint16 low = 0) : _high(high), _low(low) {}
+    explicit Fixed(int16 high, uint16 low) : _high(high), _low(low) {}
+    explicit Fixed(istream &in) { read(in); }
+    virtual ~Fixed() {}
+
+    virtual istream& read(istream &in) override {
+        int32 temp; in >> temp;
+        temp = ntohl(temp);
+        _high = (temp>> 16); _low = (temp & 0xFFFF);
+        return in;
+    }
+
+    virtual ostream& write(ostream &out) const override {
+        int32 temp((int)_high << 16 | _low);
+        temp = htonl(temp);
+        return out.write(reinterpret_cast<char *>(&temp), sizeof(temp));
+    }
 
     string toString() const {
 #if defined (__CYGWIN__)

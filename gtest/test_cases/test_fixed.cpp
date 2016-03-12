@@ -8,3 +8,7 @@ GTEST_TEST(Fixed, version) {
     Fixed negative(-1, 15);
     EXPECT_EQ(negative.toString(), "-1.15");
 }
+
+GTEST_TEST(Fixed, read_stream) {
+    // TODO
+}
