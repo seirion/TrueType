@@ -23,40 +23,37 @@
 #include "base/Reader.h"
 #include "doc/FontInfo.h"
 #include "tables/Table.h"
+#include "tables/head.h"
 
 namespace babo {
 
 class Font {
 public:
+    Font() : _open(false) {}
     explicit Font(Reader &reader) : _open(false) {
         open(reader);
     }
     ~Font() {}
 
-    bool open(Reader &reader) {
-        _fontInfo.read(reader);
-        int32 numTable = _fontInfo.getNumTables();
-        for (int32 i = 0; i < numTable; i++) {
-            if (!readAllTables(reader)) {
-                return false;
-            }
-        }
-        return reader.ok();
-    }
-
-    bool readAllTables(Reader &reader) {
-        Table table;
-        table.read(reader);
-        tables[table.getTag()] = table;
-        return reader.ok();
-    }
+    bool open(Reader &reader);
+    bool readAllTables(Reader &reader);
 
     const FontInfo &getFontInfo() const { return _fontInfo; }
+    const Table getTable(const string &tag) const {
+        auto it = tables.find(tag);
+        if (it == tables.end()) {
+            return Table();
+        }
+        return it->second;
+    }
 
+    const head &getHead() { return _head; } // FIXME
 private:
     bool _open;
     FontInfo _fontInfo;
     map<string, Table> tables;
+
+    head _head;
 };
 
 } // namespace babo

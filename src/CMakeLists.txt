@@ -19,5 +19,6 @@ include_directories(".")
 
 add_executable(true_type
 	main.cpp
+	doc/Font.cpp
 )
 
