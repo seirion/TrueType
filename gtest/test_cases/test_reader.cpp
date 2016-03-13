@@ -5,8 +5,17 @@
 
 using namespace babo;
 
-GTEST_TEST(Reader, read) {
-    Reader reader("../gtest/texture/arial.ttf");
+class FontReadingTest : public ::testing::Test {
+public:
+    Reader reader;
+    virtual void SetUp() {
+        reader.open("../gtest/texture/arial.ttf");
+    }
+    virtual void TearDown() {
+    }
+};
+
+TEST_F(FontReadingTest, read) {
     ASSERT_TRUE(reader.is_open());
 
     Font font(reader);
@@ -19,5 +28,8 @@ GTEST_TEST(Reader, read) {
     EXPECT_EQ(fontInfo.getSearchRange(), 256);
     EXPECT_EQ(fontInfo.getEntrySelector(), 4);
     EXPECT_EQ(fontInfo.getRangeShift(), 144);
+}
+
+TEST_F(FontReadingTest, head) {
 }
 

@@ -33,6 +33,7 @@ namespace babo {
 
 class Reader {
 public:
+    Reader() {}
     Reader(const string& path) { open(path); }
     ~Reader() { close(); }
 
@@ -55,7 +56,7 @@ public:
     int8 getInt8() { return static_cast<int8>(getUint8()); }
     int16 getInt16() { return static_cast<int16>(getUint16()); }
     int32 getInt32() { return static_cast<int32>(getUint32()); }
-    //int64 getInt64() { return static_cast<int64>(getUint64()); }
+    int64 getInt64() { return static_cast<int64>(getUint64()); }
 
     uint8 getUint8() {
         uint8 v;
@@ -75,11 +76,12 @@ public:
         return ntohl(v);
     }
 
-    /*uint64 getUint64() {
-        uint64 v;
-        file.read((char *)(&v), sizeof(v));
-        return ntohll.(v);
-    }*/
+    uint64 getUint64() {
+        uint32 high, low;
+        file.read((char *)(&high), sizeof(high));
+        file.read((char *)(&low), sizeof(low));
+        return ((uint64)ntohl(high) << 32) | (ntohl(low));
+    }
 
 private:
     ifstream file;
