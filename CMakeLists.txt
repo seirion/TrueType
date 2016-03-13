@@ -13,11 +13,10 @@
 # limitations under the License.
 #
 
-set(CMAKE_CXX_FLAGS "-Wall -std=c++11")
+CMAKE_MINIMUM_REQUIRED (VERSION 2.8.4)
+PROJECT (true_type)
 
-include_directories(".")
+add_subdirectory(src)
+add_subdirectory(gtest)
 
-add_executable(true_type
-	main.cpp
-)
-
+set(CMAKE_LEGACY_CYGWIN_WIN32 0)

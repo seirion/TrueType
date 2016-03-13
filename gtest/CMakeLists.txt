@@ -13,11 +13,21 @@
 # limitations under the License.
 #
 
-set(CMAKE_CXX_FLAGS "-Wall -std=c++11")
+# Setup testing
+enable_testing()
+
+set(CMAKE_CXX_FLAGS "-Wall -std=gnu++0x")
 
 include_directories(".")
+include_directories("./include")
+include_directories("../src")
 
-add_executable(true_type
-	main.cpp
+# unit tests
+add_executable(unit_test
+   	src/gtest_main.cc
+   	src/gtest-all.cc
+	test_cases/test_fixed.cpp
+	test_cases/test_reader.cpp
 )
 
+target_link_libraries(unit_test pthread)
