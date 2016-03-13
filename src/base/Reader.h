@@ -45,8 +45,9 @@ public:
     void close() { file.close(); }
     bool ok() const { return file != nullptr; }
 
-    Reader& read() {
-        return *this;
+    bool read(char *buffer, uint32 size) {
+        file.read(buffer, sizeof(size));
+        return ok();
     }
 
     bool is_open() { return file.is_open(); }
