@@ -38,10 +38,12 @@ public:
 
     Reader& open(const string& path) {
         close();
-        file.open(path);
+        file.open(path, ios::in | ios::binary);
+        return *this;
     }
 
     void close() { file.close(); }
+    bool ok() const { return file != nullptr; }
 
     Reader& read() {
         return *this;

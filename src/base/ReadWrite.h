@@ -17,6 +17,7 @@
 #define _BREAD_WRITE_H_
 
 #include <iostream>
+#include "base/Reader.h"
 
 using namespace std;
 
@@ -28,8 +29,8 @@ public:
     ReadWrite() {}
     virtual ~ReadWrite() {}
 
-    virtual istream& read(istream &in) = 0;
-    virtual ostream& write(ostream &out) const = 0;
+    virtual Reader& read(Reader &reader) = 0;
+    //virtual ostream& write(ostream &out) const = 0;
 };
 
 }

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef _BTABLE_H_
-#define _BTABLE_H_
+#ifndef _BFONT_INFO_H_
+#define _BFONT_INFO_H_
 
 /**
  * The required tables
@@ -39,15 +39,33 @@
  */
 
 #include "base/types.h"
+#include "base/Reader.h"
+#include "types/Fixed.h"
 
-class Table {
+using namespace std;
+using namespace babo;
+
+namespace babo {
+
+class FontInfo {
 public:
-    explicit Table() {}
-    explicit Table(const int8 *buffer) { load(buffer); }
+    explicit FontInfo() {}
+    explicit FontInfo(Reader &reader) { read(reader); }
 
-    bool load(const int8 *buffer) {
-        // TODO
+    bool read(Reader &reader) {
+        sfnt_version.read(reader);
+        numTables = reader.getUint16();
+        searchRange = reader.getUint16();
+        entrySelector = reader.getUint16();
+        rangeShift = reader.getUint16();
+        return (reader.ok());
     }
+
+    Fixed version() const { return sfnt_version; }
+    uint16 getNumTables() const { return numTables; }
+    uint16 getSearchRange() const { return searchRange; }
+    uint16 getEntrySelector() const { return entrySelector; }
+    uint16 getRangeShift() const { return rangeShift; }
 
 private:
     Fixed sfnt_version;     // 0x00010000 for version 1.0.
@@ -57,4 +75,5 @@ private:
     uint16 rangeShift;      // NumTables * 16 - serachRange
 };
 
-#endif // _BTABLE_H_
+} // namespace babo
+#endif // _BFONT_INFO_H_

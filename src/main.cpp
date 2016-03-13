@@ -14,11 +14,29 @@
  * limitations under the License.
  */
 #include <iostream>
-#include <base/types.h>
+#include "base/types.h"
+#include "base/Reader.h"
 
 using namespace std;
 using namespace babo;
 
-int32 main() {
+void printUsage(const char *exe) {
+    cout << "-- usgage :\n";
+    cout << "  " << exe << " FILE_NAME\n";
+}
+
+int32 main(int argc, char* argv[]) {
+    if (argc < 2) {
+        printUsage(argv[0]);
+        return -1;
+    }
+
+    Reader reader(argv[1]);
+
+    if (!reader.is_open()) {
+        cout << "cannot open file : " << argv[1] << endl;
+        return -1;
+    }
+
     return 0;
 }

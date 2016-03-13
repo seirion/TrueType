@@ -41,21 +41,22 @@ class Fixed : public ReadWrite {
 public:
     explicit Fixed(uint32 value = 0) : _high(value >> 16), _low(value & 0xFFFF) {}
     explicit Fixed(int16 high, uint16 low) : _high(high), _low(low) {}
-    explicit Fixed(istream &in) { read(in); }
+    explicit Fixed(Reader &reader) { read(reader); }
     virtual ~Fixed() {}
 
-    virtual istream& read(istream &in) override {
-        int32 temp; in >> temp;
-        temp = ntohl(temp);
+    virtual Reader& read(Reader &reader) override {
+        int32 temp = reader.getInt32();
         _high = (temp>> 16); _low = (temp & 0xFFFF);
-        return in;
+        return reader;
     }
 
-    virtual ostream& write(ostream &out) const override {
+    /*
+    virtual Writer& write(Writer &writer) const override {
         int32 temp((int)_high << 16 | _low);
         temp = htonl(temp);
-        return out.write(reinterpret_cast<char *>(&temp), sizeof(temp));
+        return writer.write(reinterpret_cast<char *>(&temp), sizeof(temp));
     }
+    */
 
     string toString() const {
 #if defined (__CYGWIN__)
