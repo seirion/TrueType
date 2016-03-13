@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "base/Reader.h"
-#include "tables/FontInfo.h"
+#include "doc/FontInfo.h"
 
 using namespace babo;
 
