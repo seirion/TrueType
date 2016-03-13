@@ -44,14 +44,15 @@ public:
     }
 
     void close() { file.close(); }
+    bool is_open() { return file.is_open(); }
+    //int32 tell() const { return file.tellg(); }
+    void seek(int32 offset) { file.seekg(offset, file.beg); }
     bool ok() const { return file != nullptr; }
 
     bool read(char *buffer, uint32 size) {
         file.read(buffer, sizeof(size));
         return ok();
     }
-
-    bool is_open() { return file.is_open(); }
 
     int8 getInt8() { return static_cast<int8>(getUint8()); }
     int16 getInt16() { return static_cast<int16>(getUint16()); }

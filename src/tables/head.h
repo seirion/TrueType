@@ -49,6 +49,24 @@ public:
         return reader.ok();
     }
 
+    Fixed getVersion() const { return _version; }
+    Fixed getFontRevision() const { return _fontRevision; }
+    uint32 getCheckSumAdjustment() const { return _checkSumAdjustment; }
+    uint32 getMagicNumber() const { return _magicNumber; }
+    uint16 getFlags() const { return _flags; }
+    uint16 getUnitsPerEm() const { return _unitsPerEm; }
+    uint64 getCreated() const { return _created; }
+    uint64 getModified() const { return _modified; }
+    int16 getXMin() const { return _xMin; }
+    int16 getYMin() const { return _yMin; }
+    int16 getXMax() const { return _xMax; }
+    int16 getYMax() const { return _yMax; }
+    uint16 getMAcStyle() const { return _macStyle; }
+    uint16 getLowestRecPPEM() const { return _lowestRecPPEM; }
+    int16 getFontDirectionHint() const { return _fontDirectionHint; }
+    int16 getIndexToLocFormat() const { return _indexToLocFormat; }
+    int16 getGlyphDataFormat() const { return _glyphDataFormat; }
+
 private:
     Fixed _version;            // Table version number    0x00010000 for version 1.0.
     Fixed _fontRevision;       // Set by font manufacturer.
