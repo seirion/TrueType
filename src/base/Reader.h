@@ -50,7 +50,7 @@ public:
     bool ok() const { return file.good(); }
 
     bool read(char *buffer, uint32 size) {
-        file.read(buffer, sizeof(size));
+        file.read(buffer, size);
         return ok();
     }
 
