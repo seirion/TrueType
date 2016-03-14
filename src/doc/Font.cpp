@@ -27,11 +27,11 @@ bool Font::open(Reader &reader) {
         }
     }
 
-    for (auto &t: tables) {
+    for (auto &t: tableInfos) {
         const string &tag = t.first;
-        const TableInfo &tableInfo = t.second;
+        const TableInfo &tableInfos = t.second;
 
-        reader.seek(tableInfo.getOffset());
+        reader.seek(tableInfos.getOffset());
         if (tag == "head") { // FIXME
             _head.read(reader);
         }
@@ -44,9 +44,9 @@ bool Font::open(Reader &reader) {
 }
 
 bool Font::readAllTableInfo(Reader &reader) {
-    TableInfo tableInfo;
-    tableInfo.read(reader);
-    tables[tableInfo.getTag()] = tableInfo;
+    TableInfo info;
+    info.read(reader);
+    tableInfos[info.getTag()] = info;
     return reader.ok();
 }
 
