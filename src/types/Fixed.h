@@ -19,8 +19,6 @@
 
 #include <cstdio>
 #include <string>
-#include "base/types.h"
-#include "base/ReadWrite.h"
 
 #if defined(_WIN32) || defined(_WIN64)
     #include <Winsock2.h>
@@ -28,9 +26,11 @@
     #include <netinet/in.h>
 #endif
 
-#if defined (__CYGWIN__)
-    #include <sstream>
-#endif
+#include <sstream>
+#include <iomanip>
+
+#include "base/types.h"
+#include "base/ReadWrite.h"
 
 using namespace std;
 using namespace babo;
@@ -42,6 +42,8 @@ public:
     explicit Fixed(uint32 value = 0) : _high(value >> 16), _low(value & 0xFFFF) {}
     explicit Fixed(int16 high, uint16 low) : _high(high), _low(low) {}
     explicit Fixed(Reader &reader) { read(reader); }
+    Fixed(float f) { fromFloat(f); }
+    Fixed(double d) { fromDouble(d); }
     virtual ~Fixed() {}
 
     virtual Reader& read(Reader &reader) override {
@@ -58,15 +60,24 @@ public:
     }
     */
 
-    string toString() const {
-#if defined (__CYGWIN__)
-        std::ostringstream os ;
-        os << _high << "." << _low;
-        return os.str() ;
-#else
-        return to_string(_high) + "." + to_string(_low);
-#endif
+    float toFloat() const { return _high + static_cast<float>(_low) / 0xFFFF; }
+    double toDouble() const { return _high + static_cast<double>(_low) / 0xFFFF; }
+    void fromFloat(float f) {
+        _high = static_cast<int>(f);
+        _low = static_cast<int>((f - _high) * 0xFFFF);
     }
+    void fromDouble(double d) {
+        _high = static_cast<int>(d);
+        _low = static_cast<int>((d - _high) * 0xFFFF);
+    }
+
+    string toString() const {
+        std::ostringstream os ;
+        os.setf(ios::fixed, ios::floatfield);
+        os << setprecision(1) << toDouble();
+        return os.str() ;
+    }
+
 private:
     int16 _high;
     uint16 _low;

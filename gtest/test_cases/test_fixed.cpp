@@ -5,8 +5,8 @@ GTEST_TEST(Fixed, version) {
     Fixed version(1, 0);
     EXPECT_EQ(version.toString(), "1.0");
 
-    Fixed negative(-1, 15);
-    EXPECT_EQ(negative.toString(), "-1.15");
+    Fixed fixed = 3.7;
+    EXPECT_EQ(fixed.toString(), "3.7");
 }
 
 GTEST_TEST(Fixed, read_stream) {
