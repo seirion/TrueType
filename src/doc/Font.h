@@ -41,8 +41,8 @@ public:
 
     const FontInfo &getFontInfo() const { return _fontInfo; }
     const TableInfo getTableInfo(const string &tag) const {
-        auto it = tableInfos.find(tag);
-        if (it == tableInfos.end()) {
+        auto it = _tableInfos.find(tag);
+        if (it == _tableInfos.end()) {
             return TableInfo();
         }
         return it->second;
@@ -54,7 +54,7 @@ public:
 private:
     bool _open;
     FontInfo _fontInfo;
-    map<string, TableInfo> tableInfos;
+    map<string, TableInfo> _tableInfos;
 
     head _head;
     hhea _hhea;
