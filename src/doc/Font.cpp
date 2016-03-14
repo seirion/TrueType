@@ -31,8 +31,12 @@ bool Font::open(Reader &reader) {
         const string &tag = t.first;
         const Table &table = t.second;
 
+        reader.seek(table.getOffset());
         if (tag == "head") { // FIXME
             _head.read(reader);
+        }
+        else if (tag == "hhea") { // FIXME
+            _hhea.read(reader);
         }
     }
 

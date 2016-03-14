@@ -24,6 +24,7 @@
 #include "doc/FontInfo.h"
 #include "tables/Table.h"
 #include "tables/head.h"
+#include "tables/hhea.h"
 
 namespace babo {
 
@@ -47,13 +48,16 @@ public:
         return it->second;
     }
 
-    const head &getHead() { return _head; } // FIXME
+    const head &get_head() const { return _head; }
+    const hhea &get_hhea() const { return _hhea; }
+
 private:
     bool _open;
     FontInfo _fontInfo;
     map<string, Table> tables;
 
     head _head;
+    hhea _hhea;
 };
 
 } // namespace babo

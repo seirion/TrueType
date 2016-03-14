@@ -3,6 +3,7 @@
 #include "doc/Font.h"
 #include "doc/FontInfo.h"
 #include "tables/head.h"
+#include "tables/hhea.h"
 
 using namespace babo;
 
@@ -31,7 +32,7 @@ TEST_F(FontReadingTest, read) {
 }
 
 TEST_F(FontReadingTest, head) {
-    const head &head = font.getHead();
+    const head &head = font.get_head();
 
     EXPECT_EQ(head.getVersion().toString(), "1.0");
     EXPECT_EQ(head.getFontRevision().toString(), "6.9");
@@ -52,3 +53,20 @@ TEST_F(FontReadingTest, head) {
     EXPECT_EQ(head.getGlyphDataFormat(), 0);
 }
 
+TEST_F(FontReadingTest, hhea) {
+    const hhea &hhea = font.get_hhea();
+
+    EXPECT_EQ(hhea.getVersion().toString(), "1.0");
+    EXPECT_EQ(hhea.getAscender(), 1854);
+    EXPECT_EQ(hhea.getDescender(), -434);
+    EXPECT_EQ(hhea.getLineGap(), 67);
+    EXPECT_EQ(hhea.getAdvanceWidthMax(), 4096);
+    EXPECT_EQ(hhea.getMinLeftSideBearing(), -1361);
+    EXPECT_EQ(hhea.getMinRightSideBearing(), -1414);
+    EXPECT_EQ(hhea.getXMaxExtent(), 4096);
+    EXPECT_EQ(hhea.getCaretSlopRise(), 1);
+    EXPECT_EQ(hhea.getCaretSlopeRun(), 0);
+    EXPECT_EQ(hhea.getCaretOffset(), 0);
+    EXPECT_EQ(hhea.getMetricDataForamt(), 0);
+    EXPECT_EQ(hhea.getNumberOfMetrices(), 4237);
+}
