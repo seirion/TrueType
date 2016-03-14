@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef _BTABLE_H_
-#define _BTABLE_H_
+#ifndef _BTABLE_INFO_H_
+#define _BTABLE_INFO_H_
 
 #include "base/types.h"
 #include "base/Reader.h"
@@ -26,11 +26,11 @@ using namespace babo;
 
 namespace babo {
 
-class Table {
+class TableInfo {
 public:
-    Table() {}
-    explicit Table(Reader &reader) { read(reader); }
-    virtual ~Table() {}
+    TableInfo() {}
+    explicit TableInfo(Reader &reader) { read(reader); }
+    virtual ~TableInfo() {}
 
     bool read(Reader &reader) {
         const uint32 TAG_LENGTH = 4;
@@ -55,6 +55,9 @@ public:
     uint32 getOffset() const { return _offset; }
     uint32 getLength() const { return _length; }
 
+    // for inserting to set (ordered set)
+    bool operator <(const TableInfo &info) const { return _tag < info._tag; }
+
 private:
     string _tag;        // 4 -byte identifier.
     uint32 _checkSum;   // CheckSum for this table.
@@ -63,4 +66,4 @@ private:
 };
 
 } // namespace babo
-#endif // _BTABLE_H_
+#endif // _BTABLE_INFO_H_

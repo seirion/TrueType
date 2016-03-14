@@ -20,18 +20,18 @@ namespace babo {
 
 bool Font::open(Reader &reader) {
     _fontInfo.read(reader);
-    int32 numTable = _fontInfo.getNumTables();
-    for (int32 i = 0; i < numTable; i++) {
-        if (!readAllTables(reader)) {
+    int32 size = _fontInfo.getNumTables();
+    for (int32 i = 0; i < size; i++) {
+        if (!readAllTableInfo(reader)) {
             return false;
         }
     }
 
     for (auto &t: tables) {
         const string &tag = t.first;
-        const Table &table = t.second;
+        const TableInfo &tableInfo = t.second;
 
-        reader.seek(table.getOffset());
+        reader.seek(tableInfo.getOffset());
         if (tag == "head") { // FIXME
             _head.read(reader);
         }
@@ -43,10 +43,10 @@ bool Font::open(Reader &reader) {
     return reader.ok();
 }
 
-bool Font::readAllTables(Reader &reader) {
-    Table table;
-    table.read(reader);
-    tables[table.getTag()] = table;
+bool Font::readAllTableInfo(Reader &reader) {
+    TableInfo tableInfo;
+    tableInfo.read(reader);
+    tables[tableInfo.getTag()] = tableInfo;
     return reader.ok();
 }
 

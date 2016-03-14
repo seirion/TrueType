@@ -22,7 +22,7 @@
 #include "base/types.h"
 #include "base/Reader.h"
 #include "doc/FontInfo.h"
-#include "tables/Table.h"
+#include "tables/TableInfo.h"
 #include "tables/head.h"
 #include "tables/hhea.h"
 
@@ -37,13 +37,13 @@ public:
     ~Font() {}
 
     bool open(Reader &reader);
-    bool readAllTables(Reader &reader);
+    bool readAllTableInfo(Reader &reader);
 
     const FontInfo &getFontInfo() const { return _fontInfo; }
-    const Table getTable(const string &tag) const {
+    const TableInfo getTableInfo(const string &tag) const {
         auto it = tables.find(tag);
         if (it == tables.end()) {
-            return Table();
+            return TableInfo();
         }
         return it->second;
     }
@@ -54,7 +54,7 @@ public:
 private:
     bool _open;
     FontInfo _fontInfo;
-    map<string, Table> tables;
+    map<string, TableInfo> tables;
 
     head _head;
     hhea _hhea;
