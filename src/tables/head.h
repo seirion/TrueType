@@ -18,16 +18,19 @@
 #define _BTABLE_HEAD_H_
 
 #include "base/types.h"
+#include "tables/Table.h"
 
 namespace babo {
 
-class head {
-public:
-    head() {}
-    head(Reader &reader) { read(reader); }
-    ~head() {}
+class TableInfo;
 
-    bool read(Reader &reader) {
+class head : public Table {
+public:
+    explicit head(const TableInfo *info = nullptr) : Table(info) {}
+    explicit head(Reader &reader, const TableInfo *info = nullptr) : Table(info) { read(reader); }
+    virtual ~head() {}
+
+    virtual bool read(Reader &reader) override {
         _version.read(reader);
         _fontRevision.read(reader);
         _checkSumAdjustment = reader.getUint32();

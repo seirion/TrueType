@@ -18,16 +18,19 @@
 #define _BTABLE_HHEA_H_
 
 #include "base/types.h"
+#include "tables/Table.h"
 
 namespace babo {
 
-class hhea {
-public:
-    hhea() {}
-    hhea(Reader &reader) { read(reader); }
-    ~hhea() {}
+class TableInfo;
 
-    bool read(Reader &reader) {
+class hhea : public Table {
+public:
+    explicit hhea(const TableInfo *info = nullptr) : Table(info) {}
+    explicit hhea(Reader &reader, const TableInfo *info = nullptr) : Table(info) { read(reader); }
+    virtual ~hhea() {}
+
+    virtual bool read(Reader &reader) override {
 
         _version.read(reader);
         _ascender = reader.getInt16();
