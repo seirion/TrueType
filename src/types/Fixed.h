@@ -60,13 +60,13 @@ public:
 
     string toString() const {
 #if defined (__CYGWIN__)
-      std::ostringstream os ;
-      os << _high << "." << _low;
-      return os.str() ;
+        std::ostringstream os ;
+        os << _high << "." << _low;
+        return os.str() ;
 #else
-        return to_string(_high) + "." + to_string(_low); }
+        return to_string(_high) + "." + to_string(_low);
 #endif
-}
+    }
 private:
     int16 _high;
     uint16 _low;

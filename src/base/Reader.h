@@ -47,7 +47,7 @@ public:
     bool is_open() { return file.is_open(); }
     //int32 tell() const { return file.tellg(); }
     void seek(int32 offset) { file.seekg(offset, file.beg); }
-    bool ok() const { return file != nullptr; }
+    bool ok() const { return file.good(); }
 
     bool read(char *buffer, uint32 size) {
         file.read(buffer, sizeof(size));
