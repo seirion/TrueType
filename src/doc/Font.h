@@ -38,7 +38,11 @@ public:
         init();
         open(reader);
     }
-    ~Font() {}
+    virtual ~Font() {
+        for (auto &i : _tables) {
+            delete i.second;
+        }
+    }
 
     bool open(Reader &reader);
     bool readAllTableInfo(Reader &reader);
