@@ -70,3 +70,23 @@ TEST_F(FontReadingTest, hhea) {
     EXPECT_EQ(hhea.getMetricDataForamt(), 0);
     EXPECT_EQ(hhea.getNumberOfMetrices(), 4237);
 }
+
+TEST_F(FontReadingTest, maxp) {
+    const maxp &maxp = font.get_maxp();
+
+    EXPECT_EQ(maxp.getVersion().toString(), "1.0");
+    EXPECT_EQ(maxp.getNumGlyphs(), 4237);
+    EXPECT_EQ(maxp.getMaxPoints(), 693);
+    EXPECT_EQ(maxp.getMaxContours(), 60);
+    EXPECT_EQ(maxp.getMaxCompositePoints(), 202);
+    EXPECT_EQ(maxp.getMaxCompositeCoutours(), 7);
+    EXPECT_EQ(maxp.getMaxZones(), 2);
+    EXPECT_EQ(maxp.getMaxTwilightPoints(), 16);
+    EXPECT_EQ(maxp.getMaxStorage(), 64);
+    EXPECT_EQ(maxp.getMaxFunctionDefs(), 134);
+    EXPECT_EQ(maxp.getMaxInstructionDefs(), 0);
+    EXPECT_EQ(maxp.getMaxStackElements(), 1303);
+    EXPECT_EQ(maxp.getMaxSizeOfInstructions(), 1516);
+    EXPECT_EQ(maxp.getMaxComponentElements(), 5);
+    EXPECT_EQ(maxp.getMaxComponentDepth(), 2);
+}

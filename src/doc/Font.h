@@ -25,6 +25,7 @@
 #include "tables/TableInfo.h"
 #include "tables/head.h"
 #include "tables/hhea.h"
+#include "tables/maxp.h"
 
 namespace babo {
 
@@ -50,6 +51,7 @@ public:
 
     const head &get_head() const { return _head; }
     const hhea &get_hhea() const { return _hhea; }
+    const maxp &get_maxp() const { return _maxp; }
 
 private:
     bool _open;
@@ -58,6 +60,7 @@ private:
 
     head _head;
     hhea _hhea;
+    maxp _maxp;
 };
 
 } // namespace babo

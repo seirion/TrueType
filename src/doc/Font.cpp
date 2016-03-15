@@ -32,11 +32,14 @@ bool Font::open(Reader &reader) {
         const TableInfo &info = t.second;
 
         reader.seek(info.getOffset());
-        if (tag == "head") { // FIXME
+        if (tag == "head") {
             _head.read(reader);
         }
-        else if (tag == "hhea") { // FIXME
+        else if (tag == "hhea") {
             _hhea.read(reader);
+        }
+        else if (tag == "maxp") {
+            _maxp.read(reader);
         }
     }
 
