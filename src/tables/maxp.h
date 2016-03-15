@@ -34,6 +34,8 @@ public:
 
         _version.read(reader);
         _numGlyphs = reader.getUint16();
+        if (_version.value() == 0x00005000) return reader.ok();
+
         _maxPoints = reader.getUint16();
         _maxContours = reader.getUint16();
         _maxCompositePoints = reader.getUint16();

@@ -78,6 +78,8 @@ public:
         return os.str() ;
     }
 
+    int32 value() const { return (static_cast<int32>(_high) << 16) | _low; }
+
 private:
     int16 _high;
     uint16 _low;
