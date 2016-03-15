@@ -32,61 +32,61 @@ TEST_F(FontReadingTest, read) {
 }
 
 TEST_F(FontReadingTest, head) {
-    const head &head = font.get_head();
+    const head *table = reinterpret_cast<const head *>(font.getTable("head"));
 
-    EXPECT_EQ(head.getVersion().toString(), "1.0");
-    EXPECT_EQ(head.getFontRevision().toString(), "6.9");
-    EXPECT_EQ(head.getCheckSumAdjustment(), 0xfd9ba091);
-    EXPECT_EQ(head.getMagicNumber(), 0x5f0f3cf5);
-    EXPECT_EQ(head.getFlags(), 0x081b);
-    EXPECT_EQ(head.getUnitsPerEm(), 2048);
-    EXPECT_EQ(head.getCreated(), 0xa2e3272aLL);
-    EXPECT_EQ(head.getModified(), 0xd19de3fdLL);
-    EXPECT_EQ(head.getXMin(), -1361);
-    EXPECT_EQ(head.getYMin(), -665);
-    EXPECT_EQ(head.getXMax(), 4096);
-    EXPECT_EQ(head.getYMax(), 2129);
-    EXPECT_EQ(head.getMAcStyle(), 0);
-    EXPECT_EQ(head.getLowestRecPPEM(), 9);
-    EXPECT_EQ(head.getFontDirectionHint(), 1);
-    EXPECT_EQ(head.getIndexToLocFormat(), 1);
-    EXPECT_EQ(head.getGlyphDataFormat(), 0);
+    EXPECT_EQ(table->getVersion().toString(), "1.0");
+    EXPECT_EQ(table->getFontRevision().toString(), "6.9");
+    EXPECT_EQ(table->getCheckSumAdjustment(), 0xfd9ba091);
+    EXPECT_EQ(table->getMagicNumber(), 0x5f0f3cf5);
+    EXPECT_EQ(table->getFlags(), 0x081b);
+    EXPECT_EQ(table->getUnitsPerEm(), 2048);
+    EXPECT_EQ(table->getCreated(), 0xa2e3272aLL);
+    EXPECT_EQ(table->getModified(), 0xd19de3fdLL);
+    EXPECT_EQ(table->getXMin(), -1361);
+    EXPECT_EQ(table->getYMin(), -665);
+    EXPECT_EQ(table->getXMax(), 4096);
+    EXPECT_EQ(table->getYMax(), 2129);
+    EXPECT_EQ(table->getMAcStyle(), 0);
+    EXPECT_EQ(table->getLowestRecPPEM(), 9);
+    EXPECT_EQ(table->getFontDirectionHint(), 1);
+    EXPECT_EQ(table->getIndexToLocFormat(), 1);
+    EXPECT_EQ(table->getGlyphDataFormat(), 0);
 }
 
 TEST_F(FontReadingTest, hhea) {
-    const hhea &hhea = font.get_hhea();
+    const hhea *table = reinterpret_cast<const hhea *>(font.getTable("hhea"));
 
-    EXPECT_EQ(hhea.getVersion().toString(), "1.0");
-    EXPECT_EQ(hhea.getAscender(), 1854);
-    EXPECT_EQ(hhea.getDescender(), -434);
-    EXPECT_EQ(hhea.getLineGap(), 67);
-    EXPECT_EQ(hhea.getAdvanceWidthMax(), 4096);
-    EXPECT_EQ(hhea.getMinLeftSideBearing(), -1361);
-    EXPECT_EQ(hhea.getMinRightSideBearing(), -1414);
-    EXPECT_EQ(hhea.getXMaxExtent(), 4096);
-    EXPECT_EQ(hhea.getCaretSlopRise(), 1);
-    EXPECT_EQ(hhea.getCaretSlopeRun(), 0);
-    EXPECT_EQ(hhea.getCaretOffset(), 0);
-    EXPECT_EQ(hhea.getMetricDataForamt(), 0);
-    EXPECT_EQ(hhea.getNumberOfMetrices(), 4237);
+    EXPECT_EQ(table->getVersion().toString(), "1.0");
+    EXPECT_EQ(table->getAscender(), 1854);
+    EXPECT_EQ(table->getDescender(), -434);
+    EXPECT_EQ(table->getLineGap(), 67);
+    EXPECT_EQ(table->getAdvanceWidthMax(), 4096);
+    EXPECT_EQ(table->getMinLeftSideBearing(), -1361);
+    EXPECT_EQ(table->getMinRightSideBearing(), -1414);
+    EXPECT_EQ(table->getXMaxExtent(), 4096);
+    EXPECT_EQ(table->getCaretSlopRise(), 1);
+    EXPECT_EQ(table->getCaretSlopeRun(), 0);
+    EXPECT_EQ(table->getCaretOffset(), 0);
+    EXPECT_EQ(table->getMetricDataForamt(), 0);
+    EXPECT_EQ(table->getNumberOfMetrices(), 4237);
 }
 
 TEST_F(FontReadingTest, maxp) {
-    const maxp &maxp = font.get_maxp();
+    const maxp *table = reinterpret_cast<const maxp *>(font.getTable("maxp"));
 
-    EXPECT_EQ(maxp.getVersion().toString(), "1.0");
-    EXPECT_EQ(maxp.getNumGlyphs(), 4237);
-    EXPECT_EQ(maxp.getMaxPoints(), 693);
-    EXPECT_EQ(maxp.getMaxContours(), 60);
-    EXPECT_EQ(maxp.getMaxCompositePoints(), 202);
-    EXPECT_EQ(maxp.getMaxCompositeCoutours(), 7);
-    EXPECT_EQ(maxp.getMaxZones(), 2);
-    EXPECT_EQ(maxp.getMaxTwilightPoints(), 16);
-    EXPECT_EQ(maxp.getMaxStorage(), 64);
-    EXPECT_EQ(maxp.getMaxFunctionDefs(), 134);
-    EXPECT_EQ(maxp.getMaxInstructionDefs(), 0);
-    EXPECT_EQ(maxp.getMaxStackElements(), 1303);
-    EXPECT_EQ(maxp.getMaxSizeOfInstructions(), 1516);
-    EXPECT_EQ(maxp.getMaxComponentElements(), 5);
-    EXPECT_EQ(maxp.getMaxComponentDepth(), 2);
+    EXPECT_EQ(table->getVersion().toString(), "1.0");
+    EXPECT_EQ(table->getNumGlyphs(), 4237);
+    EXPECT_EQ(table->getMaxPoints(), 693);
+    EXPECT_EQ(table->getMaxContours(), 60);
+    EXPECT_EQ(table->getMaxCompositePoints(), 202);
+    EXPECT_EQ(table->getMaxCompositeCoutours(), 7);
+    EXPECT_EQ(table->getMaxZones(), 2);
+    EXPECT_EQ(table->getMaxTwilightPoints(), 16);
+    EXPECT_EQ(table->getMaxStorage(), 64);
+    EXPECT_EQ(table->getMaxFunctionDefs(), 134);
+    EXPECT_EQ(table->getMaxInstructionDefs(), 0);
+    EXPECT_EQ(table->getMaxStackElements(), 1303);
+    EXPECT_EQ(table->getMaxSizeOfInstructions(), 1516);
+    EXPECT_EQ(table->getMaxComponentElements(), 5);
+    EXPECT_EQ(table->getMaxComponentDepth(), 2);
 }

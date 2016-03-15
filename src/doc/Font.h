@@ -31,8 +31,11 @@ namespace babo {
 
 class Font {
 public:
-    Font() : _open(false) {}
+    Font() : _open(false) {
+        init();
+    }
     explicit Font(Reader &reader) : _open(false) {
+        init();
         open(reader);
     }
     ~Font() {}
@@ -49,18 +52,20 @@ public:
         return it->second;
     }
 
-    const head &get_head() const { return _head; }
-    const hhea &get_hhea() const { return _hhea; }
-    const maxp &get_maxp() const { return _maxp; }
+    const Table* getTable(const string &tag) {
+        auto it = _tables.find(tag);
+        if (it == _tables.end()) return nullptr;
+        else return it->second;
+    }
+
+private:
+    void init();
 
 private:
     bool _open;
     FontInfo _fontInfo;
     map<string, TableInfo> _tableInfos;
-
-    head _head;
-    hhea _hhea;
-    maxp _maxp;
+    map<string, Table*> _tables;
 };
 
 } // namespace babo

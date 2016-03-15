@@ -18,6 +18,9 @@
 
 namespace babo {
 
+void Font::init() {
+}
+
 bool Font::open(Reader &reader) {
     _fontInfo.read(reader);
     int32 size = _fontInfo.getNumTables();
@@ -31,15 +34,23 @@ bool Font::open(Reader &reader) {
         const string &tag = t.first;
         const TableInfo &info = t.second;
 
+        Table *table = nullptr;
         reader.seek(info.getOffset());
         if (tag == "head") {
-            _head.read(reader);
+            table = new head(&info);
+            table->read(reader);
         }
         else if (tag == "hhea") {
-            _hhea.read(reader);
+            table = new hhea(&info);
+            table->read(reader);
         }
         else if (tag == "maxp") {
-            _maxp.read(reader);
+            table = new maxp(&info);
+            table->read(reader);
+        }
+
+        if (table) {
+            _tables[tag] = table;
         }
     }
 
