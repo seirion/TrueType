@@ -15,6 +15,7 @@
  */
 
 #include "doc/Font.h"
+#include "tables/TableBuilder.h"
 
 namespace babo {
 
@@ -34,26 +35,20 @@ bool Font::open(Reader &reader) {
         const string &tag = t.first;
         const TableInfo &info = t.second;
 
-        Table *table = nullptr;
         reader.seek(info.getOffset());
-        if (tag == "head") {
-            table = new head(&info);
-            table->read(reader);
-        }
-        else if (tag == "hhea") {
-            table = new hhea(&info);
-            table->read(reader);
-        }
-        else if (tag == "maxp") {
-            table = new maxp(&info);
-            table->read(reader);
-        }
-
-        if (table) {
-            _tables[tag] = table;
-        }
+        if (!readTable(reader, tag, info)) return false;
     }
+    return reader.ok();
+}
 
+bool Font::readTable(Reader &reader, const string &tag, const TableInfo &info) {
+    Table *table = TableBuilder::build(tag);
+
+    if (table) {
+        table->setTableInfo(&info);
+        table->read(reader);
+        _tables[tag] = table;
+    }
     return reader.ok();
 }
 

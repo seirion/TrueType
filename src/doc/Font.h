@@ -45,6 +45,7 @@ public:
     }
 
     bool open(Reader &reader);
+    bool readTable(Reader &reader, const string &tag, const TableInfo &info);
     bool readAllTableInfo(Reader &reader);
 
     const FontInfo &getFontInfo() const { return _fontInfo; }
