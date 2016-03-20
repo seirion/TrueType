@@ -54,7 +54,7 @@ public:
 
     /*
     virtual Writer& write(Writer &writer) const override {
-        int32 temp((int)_high << 16 | _low);
+        int32 temp((int32)_high << 16 | _low);
         temp = htonl(temp);
         return writer.write(reinterpret_cast<char *>(&temp), sizeof(temp));
     }
@@ -63,12 +63,12 @@ public:
     float toFloat() const { return _high + static_cast<float>(_low) / 0xFFFF; }
     double toDouble() const { return _high + static_cast<double>(_low) / 0xFFFF; }
     void fromFloat(float f) {
-        _high = static_cast<int>(f);
-        _low = static_cast<int>((f - _high) * 0xFFFF);
+        _high = static_cast<int32>(f);
+        _low = static_cast<int32>((f - _high) * 0xFFFF);
     }
     void fromDouble(double d) {
-        _high = static_cast<int>(d);
-        _low = static_cast<int>((d - _high) * 0xFFFF);
+        _high = static_cast<int32>(d);
+        _low = static_cast<int32>((d - _high) * 0xFFFF);
     }
 
     string toString() const {
