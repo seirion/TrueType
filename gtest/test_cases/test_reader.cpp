@@ -108,4 +108,13 @@ TEST_F(FontReadingTest, cmap) {
     EXPECT_EQ(subTables[1].getEncodingID(), 0);
     EXPECT_EQ(subTables[2].getPlatformID(), 3);
     EXPECT_EQ(subTables[2].getEncodingID(), 1);
+
+    cmap_mapping *mapping = subTables[0].getMapping();
+    EXPECT_EQ(mapping->getFormat(), 4);
+
+    mapping = subTables[1].getMapping();
+    EXPECT_EQ(mapping->getFormat(), 0);
+
+    mapping = subTables[2].getMapping();
+    EXPECT_EQ(mapping->getFormat(), 4);
 }

@@ -29,6 +29,7 @@ add_executable(unit_test
 	test_cases/test_fixed.cpp
 	test_cases/test_reader.cpp
 	../src/doc/Font.cpp
+	../src/tables/cmap_mapping.cpp
 )
 
 target_link_libraries(unit_test pthread)
