@@ -4,6 +4,8 @@
 #include "doc/FontInfo.h"
 #include "tables/head.h"
 #include "tables/hhea.h"
+#include "tables/maxp.h"
+#include "tables/cmap.h"
 
 using namespace babo;
 
@@ -89,4 +91,21 @@ TEST_F(FontReadingTest, maxp) {
     EXPECT_EQ(table->getMaxSizeOfInstructions(), 1516);
     EXPECT_EQ(table->getMaxComponentElements(), 5);
     EXPECT_EQ(table->getMaxComponentDepth(), 2);
+}
+
+TEST_F(FontReadingTest, cmap) {
+    const cmap *table = reinterpret_cast<const cmap *>(font.getTable("cmap"));
+
+    EXPECT_EQ(table->getVersion(), 0);
+
+    int32 numTables = table->getNumTables();
+    EXPECT_EQ(numTables, 3);
+
+    const vector<cmap::SubTable> &subTables = table->getSubTables();
+    EXPECT_EQ(subTables[0].getPlatformID(), 0);
+    EXPECT_EQ(subTables[0].getEncodingID(), 3);
+    EXPECT_EQ(subTables[1].getPlatformID(), 1);
+    EXPECT_EQ(subTables[1].getEncodingID(), 0);
+    EXPECT_EQ(subTables[2].getPlatformID(), 3);
+    EXPECT_EQ(subTables[2].getEncodingID(), 1);
 }
