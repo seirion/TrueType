@@ -20,6 +20,7 @@
 #include "base/types.h"
 #include "base/Reader.h"
 
+#include <iostream>
 #include <vector>
 
 namespace babo {
@@ -79,7 +80,7 @@ public:
         _entrySelector = reader.getUint16();
         _rangeShift = reader.getUint16();
 
-        uint16 size = _length - (_segCountX2 * 4);
+        uint32 size = _segCountX2 / 2;
         _endCount.resize(size);
         for (uint32 i = 0; i < size; i++) {
             _endCount[i] = reader.getUint16();
@@ -99,6 +100,8 @@ public:
         for (uint32 i = 0; i < size; i++) {
             _idRangeOffset[i] = reader.getUint16();
         }
+
+        size = (_length - (_segCountX2 * 4)) / 2;
         _glyphIdArray.resize(size);
         for (uint32 i = 0; i < size; i++) {
             _glyphIdArray[i] = reader.getUint16();
