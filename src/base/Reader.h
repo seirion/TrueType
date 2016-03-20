@@ -45,7 +45,7 @@ public:
 
     void close() { file.close(); }
     bool is_open() { return file.is_open(); }
-    //int32 tell() const { return file.tellg(); }
+    uint32 tell() { return file.tellg(); }
     void seek(int32 offset) { file.seekg(offset, file.beg); }
     bool ok() const { return file.good(); }
 
