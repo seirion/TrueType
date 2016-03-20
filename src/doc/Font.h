@@ -23,9 +23,7 @@
 #include "base/Reader.h"
 #include "doc/FontInfo.h"
 #include "tables/TableInfo.h"
-#include "tables/head.h"
-#include "tables/hhea.h"
-#include "tables/maxp.h"
+#include "tables/Table.h"
 
 namespace babo {
 
@@ -39,8 +37,8 @@ public:
         open(reader);
     }
     virtual ~Font() {
-        for (auto &i : _tables) {
-            delete i.second;
+        for (auto &table : _tables) {
+            delete table.second;
         }
     }
 
