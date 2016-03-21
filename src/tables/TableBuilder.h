@@ -18,10 +18,11 @@
 #define _BTABLE_BUILDER_H_
 
 #include "base/types.h"
+#include "tables/cmap.h"
 #include "tables/head.h"
 #include "tables/hhea.h"
 #include "tables/maxp.h"
-#include "tables/cmap.h"
+#include "tables/name.h"
 
 using namespace std;
 using namespace babo;
@@ -39,6 +40,7 @@ public:
         if (tag == "hhea") return new hhea();
         if (tag == "maxp") return new maxp();
         if (tag == "cmap") return new cmap();
+        if (tag == "name") return new name();
         return nullptr;
     }
 };

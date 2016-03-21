@@ -2,10 +2,11 @@
 #include "base/Reader.h"
 #include "doc/Font.h"
 #include "doc/FontInfo.h"
+#include "tables/cmap.h"
 #include "tables/head.h"
 #include "tables/hhea.h"
 #include "tables/maxp.h"
-#include "tables/cmap.h"
+#include "tables/name.h"
 
 using namespace babo;
 
@@ -117,4 +118,12 @@ TEST_F(FontReadingTest, cmap) {
 
     mapping = subTables[2].getMapping();
     EXPECT_EQ(mapping->getFormat(), 4);
+}
+
+
+TEST_F(FontReadingTest, name) {
+    const name *table = reinterpret_cast<const name *>(font.getTable("name"));
+
+    EXPECT_EQ(table->getFormat(), 0);
+    EXPECT_EQ(table->getCount(), 58);
 }
