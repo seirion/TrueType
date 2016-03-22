@@ -16,10 +16,11 @@
 
 #include "tables/cmap_mapping.h"
 
-using namespace babo;
-
+namespace babo {
 cmap_mapping *cmap_mapping::build(uint16 format) {
     if (format == 0) return new cmap_mapping_format0(format);
     if (format == 4) return new cmap_mapping_format4(format);
     return nullptr;
 }
+
+} // namespace babo
