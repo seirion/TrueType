@@ -21,6 +21,11 @@
 #include "tables/Table.h"
 
 #include <memory>
+#include <locale>
+#if !defined (__CYGWIN__)
+    #include <codecvt>
+#endif
+#include <string>
 
 namespace babo {
 
@@ -43,11 +48,24 @@ public:
             nameRecord.read(reader);
         }
 
-        // TODO : assign buffer to member variables
         std::unique_ptr<char[]> buffer( new char[5000] );
         for (auto &nameRecord : _nameRecord) {
+
             reader.seek(delta + _stringOffset + nameRecord.getOffset());
             reader.read(buffer.get(), nameRecord.getLength());
+
+            buffer[nameRecord.getLength()] = '\0';
+            buffer[nameRecord.getLength()+1] = '\0';
+
+            // FIXME
+            wstring str(reinterpret_cast<wchar_t *>(buffer.get()));
+//#define TEST_PRINT
+#ifdef TEST_PRINT
+            wprintf(L"%ls\n", str.c_str());
+            //std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> convert;
+            //std::string utf16String = convert.to_bytes(str);
+            //wprintf("%ls\n", utf16String.c_str());
+#endif
         }
         return reader.ok();
     }
