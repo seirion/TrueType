@@ -36,6 +36,20 @@ bool Font::read(Reader &reader) {
         reader.seek(info.getOffset());
         if (!readTable(reader, tag, info)) return false;
     }
+
+    queue<string> job(move(_job));
+    while (!job.empty()) {
+        string tag = job.front(); job.pop();
+        auto it = _tableInfos.find(tag);
+        if (it == _tableInfos.end()) continue;
+
+        const TableInfo &info = _tableInfos[tag];
+
+        reader.seek(info.getOffset());
+        if (!readTable(reader, tag, info)) return false;
+    }
+
+    queue<string> temp(move(_job)); // clear
     _open = reader.ok();
     return _open;
 }

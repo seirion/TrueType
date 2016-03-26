@@ -33,23 +33,24 @@ public:
     virtual ~hmtx() {}
 
     virtual bool read(Reader &reader) override {
-        
-        {
-            const hhea *table = reinterpret_cast<const hhea *>(Font::instance().getTable("hhea"));
-            int size = table->getNumberOfHMetrics();
-            _hMetrics.resize(size);
-            for (int i = 0; i < size; i++) {
-                _hMetrics[i].read(reader);
-            }
+
+        const hhea *hhea_= reinterpret_cast<const hhea *>(Font::instance().getTable("hhea"));
+        const maxp *maxp_ = reinterpret_cast<const maxp *>(Font::instance().getTable("maxp"));
+        if (hhea_ == nullptr || maxp_ == nullptr) {
+            Font::instance().pushJob("hmtx");
+            return true;
         }
 
-        {
-            const maxp *table = reinterpret_cast<const maxp *>(Font::instance().getTable("maxp"));
-            int size = table->getNumGlyphs();
-            _leftSideBearing.resize(size);
-            for (int i = 0; i < size; i++) {
-                _leftSideBearing[i] = reader.getInt16();
-            }
+        int numberOfHMetrics = hhea_->getNumberOfHMetrics();
+        _hMetrics.resize(numberOfHMetrics);
+        for (int i = 0; i < numberOfHMetrics; i++) {
+            _hMetrics[i].read(reader);
+        }
+
+        int size = maxp_->getNumGlyphs() - numberOfHMetrics;
+        _leftSideBearing.resize(size);
+        for (int i = 0; i < size; i++) {
+            _leftSideBearing[i] = reader.getInt16();
         }
 
         return reader.ok();
