@@ -16,6 +16,8 @@
 #include <iostream>
 #include "base/types.h"
 #include "base/Reader.h"
+#include "doc/Font.h"
+#include "tables/head.h"
 
 using namespace std;
 using namespace babo;
@@ -37,6 +39,14 @@ int32 main(int argc, char* argv[]) {
         cout << "cannot open file : " << argv[1] << endl;
         return -1;
     }
+
+    Font font(reader);
+    const head *table = reinterpret_cast<const head *>(font.getTable("head"));
+
+    cout << "* Font Information : " <<
+            "\n  Version : " << table->getVersion().toString() <<
+            "\n  Font Revision : " << table->getFontRevision().toString() <<
+            "\n";
 
     return 0;
 }
