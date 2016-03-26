@@ -24,6 +24,7 @@
 #include "tables/hmtx.h"
 #include "tables/maxp.h"
 #include "tables/name.h"
+#include "tables/os_2.h"
 
 using namespace std;
 using namespace babo;
@@ -43,6 +44,7 @@ public:
         if (tag == "maxp") return new maxp();
         if (tag == "cmap") return new cmap();
         if (tag == "name") return new name();
+        if (tag == "OS/2") return new os_2();
         return nullptr;
     }
 };

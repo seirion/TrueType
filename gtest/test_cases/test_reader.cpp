@@ -8,6 +8,7 @@
 #include "tables/hmtx.h"
 #include "tables/maxp.h"
 #include "tables/name.h"
+#include "tables/os_2.h"
 
 using namespace babo;
 
@@ -128,6 +129,17 @@ TEST_F(FontReadingTest, name) {
     EXPECT_EQ(table->getCount(), 58);
 }
 
-TEST_F(FontReadingTest, hmtx) {
-    const hmtx *table = reinterpret_cast<const hmtx *>(Font::instance().getTable("hmtx"));
+//TEST_F(FontReadingTest, hmtx) {
+//    const hmtx *table = reinterpret_cast<const hmtx *>(Font::instance().getTable("hmtx"));
+//}
+
+TEST_F(FontReadingTest, os_2) {
+    const os_2 *table = reinterpret_cast<const os_2 *>(Font::instance().getTable("OS/2"));
+
+    EXPECT_EQ(table->getVersion(), 0x0003);
+    EXPECT_EQ(table->getXAvgCharWidth(), 904);
+    EXPECT_EQ(table->getUsWeightClass(), 400);
+    EXPECT_EQ(table->getUsWidthClass(), 5);
+    EXPECT_EQ(table->getFsType(), 0x0008);
+    EXPECT_EQ(table->getAchVendID(), "TMC ");
 }
