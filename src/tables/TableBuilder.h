@@ -21,6 +21,7 @@
 #include "tables/cmap.h"
 #include "tables/head.h"
 #include "tables/hhea.h"
+#include "tables/hmtx.h"
 #include "tables/maxp.h"
 #include "tables/name.h"
 
@@ -38,6 +39,7 @@ public:
     static Table *build(const string &tag) {
         if (tag == "head") return new head();
         if (tag == "hhea") return new hhea();
+        if (tag == "hmtx") return new hmtx();
         if (tag == "maxp") return new maxp();
         if (tag == "cmap") return new cmap();
         if (tag == "name") return new name();

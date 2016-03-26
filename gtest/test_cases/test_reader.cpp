@@ -5,6 +5,7 @@
 #include "tables/cmap.h"
 #include "tables/head.h"
 #include "tables/hhea.h"
+#include "tables/hmtx.h"
 #include "tables/maxp.h"
 #include "tables/name.h"
 
@@ -70,7 +71,7 @@ TEST_F(FontReadingTest, hhea) {
     EXPECT_EQ(table->getCaretSlopeRun(), 0);
     EXPECT_EQ(table->getCaretOffset(), 0);
     EXPECT_EQ(table->getMetricDataForamt(), 0);
-    EXPECT_EQ(table->getNumberOfMetrices(), 4237);
+    EXPECT_EQ(table->getNumberOfHMetrics(), 4237);
 }
 
 TEST_F(FontReadingTest, maxp) {
@@ -125,4 +126,8 @@ TEST_F(FontReadingTest, name) {
 
     EXPECT_EQ(table->getFormat(), 0);
     EXPECT_EQ(table->getCount(), 58);
+}
+
+TEST_F(FontReadingTest, hmtx) {
+    const hmtx *table = reinterpret_cast<const hmtx *>(Font::instance().getTable("hmtx"));
 }

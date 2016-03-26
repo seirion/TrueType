@@ -62,7 +62,7 @@ public:
     int16 getCaretSlopeRun() const { return _caretSlopeRun; }
     int16 getCaretOffset() const { return _caretOffset; }
     int16 getMetricDataForamt() const { return _metricDataFormat; }
-    uint16 getNumberOfMetrices() const { return _numberOfHMetrics; }
+    uint16 getNumberOfHMetrics() const { return _numberOfHMetrics; }
 
 private:
     Fixed _version;             // Table version number    0x00010000 for version 1.0.
