@@ -40,7 +40,9 @@ int32 main(int argc, char* argv[]) {
         return -1;
     }
 
-    Font font(reader);
+    Font &font = Font::instance();
+    font.read(reader);
+
     const head *table = reinterpret_cast<const head *>(font.getTable("head"));
 
     cout << "* Font Information : " <<

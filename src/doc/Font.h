@@ -28,21 +28,22 @@
 namespace babo {
 
 class Font {
+private:
+    Font() : _open(false) {}
+
 public:
-    Font() : _open(false) {
-        init();
+    static Font &instance() { // singleton
+        static Font instance;
+        return instance;
     }
-    explicit Font(Reader &reader) : _open(false) {
-        init();
-        open(reader);
-    }
+
     virtual ~Font() {
         for (auto &table : _tables) {
             delete table.second;
         }
     }
 
-    bool open(Reader &reader);
+    bool read(Reader &reader);
     bool readTable(Reader &reader, const string &tag, const TableInfo &info);
     bool readAllTableInfo(Reader &reader);
 
@@ -61,8 +62,7 @@ public:
         else return it->second;
     }
 
-private:
-    void init();
+    bool is_open() const { return _open; }
 
 private:
     bool _open;

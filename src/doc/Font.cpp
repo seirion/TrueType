@@ -19,10 +19,8 @@
 
 namespace babo {
 
-void Font::init() {
-}
-
-bool Font::open(Reader &reader) {
+bool Font::read(Reader &reader) {
+    _open = false;
     _fontInfo.read(reader);
     int32 size = _fontInfo.getNumTables();
     for (int32 i = 0; i < size; i++) {
@@ -38,7 +36,8 @@ bool Font::open(Reader &reader) {
         reader.seek(info.getOffset());
         if (!readTable(reader, tag, info)) return false;
     }
-    return reader.ok();
+    _open = reader.ok();
+    return _open;
 }
 
 bool Font::readTable(Reader &reader, const string &tag, const TableInfo &info) {

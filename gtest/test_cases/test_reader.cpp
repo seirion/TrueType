@@ -13,11 +13,10 @@ using namespace babo;
 class FontReadingTest : public ::testing::Test {
 public:
     Reader reader;
-    Font font;
     virtual void SetUp() {
         reader.open("../gtest/texture/arial.ttf");
         ASSERT_TRUE(reader.is_open());
-        font.open(reader);
+        Font::instance().read(reader);
         ASSERT_TRUE(reader.ok());
     }
     virtual void TearDown() {
@@ -25,7 +24,7 @@ public:
 };
 
 TEST_F(FontReadingTest, read) {
-    const FontInfo fontInfo = font.getFontInfo();
+    const FontInfo fontInfo = Font::instance().getFontInfo();
 
     EXPECT_EQ(fontInfo.version().toString(), "1.0");
     EXPECT_EQ(fontInfo.getNumTables(), 25);
@@ -35,7 +34,7 @@ TEST_F(FontReadingTest, read) {
 }
 
 TEST_F(FontReadingTest, head) {
-    const head *table = reinterpret_cast<const head *>(font.getTable("head"));
+    const head *table = reinterpret_cast<const head *>(Font::instance().getTable("head"));
 
     EXPECT_EQ(table->getVersion().toString(), "1.0");
     EXPECT_EQ(table->getFontRevision().toString(), "6.9");
@@ -57,7 +56,7 @@ TEST_F(FontReadingTest, head) {
 }
 
 TEST_F(FontReadingTest, hhea) {
-    const hhea *table = reinterpret_cast<const hhea *>(font.getTable("hhea"));
+    const hhea *table = reinterpret_cast<const hhea *>(Font::instance().getTable("hhea"));
 
     EXPECT_EQ(table->getVersion().toString(), "1.0");
     EXPECT_EQ(table->getAscender(), 1854);
@@ -75,7 +74,7 @@ TEST_F(FontReadingTest, hhea) {
 }
 
 TEST_F(FontReadingTest, maxp) {
-    const maxp *table = reinterpret_cast<const maxp *>(font.getTable("maxp"));
+    const maxp *table = reinterpret_cast<const maxp *>(Font::instance().getTable("maxp"));
 
     EXPECT_EQ(table->getVersion().toString(), "1.0");
     EXPECT_EQ(table->getNumGlyphs(), 4237);
@@ -95,7 +94,7 @@ TEST_F(FontReadingTest, maxp) {
 }
 
 TEST_F(FontReadingTest, cmap) {
-    const cmap *table = reinterpret_cast<const cmap *>(font.getTable("cmap"));
+    const cmap *table = reinterpret_cast<const cmap *>(Font::instance().getTable("cmap"));
 
     EXPECT_EQ(table->getVersion(), 0);
 
@@ -122,7 +121,7 @@ TEST_F(FontReadingTest, cmap) {
 
 
 TEST_F(FontReadingTest, name) {
-    const name *table = reinterpret_cast<const name *>(font.getTable("name"));
+    const name *table = reinterpret_cast<const name *>(Font::instance().getTable("name"));
 
     EXPECT_EQ(table->getFormat(), 0);
     EXPECT_EQ(table->getCount(), 58);
