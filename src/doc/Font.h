@@ -18,7 +18,7 @@
 
 #include <map>
 #include <string>
-#include <queue>
+#include <vector>
 
 #include "base/types.h"
 #include "base/Reader.h"
@@ -64,11 +64,11 @@ public:
     }
 
     bool is_open() const { return _open; }
-    void pushJob(const string &tag) { _job.push(tag); }
+    void pushJob(const string &tag) { _job.push_back(tag); }
 
 private:
     bool _open;
-    queue<string> _job;
+    vector<string> _job;
 
 private:
     FontInfo _fontInfo;

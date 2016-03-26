@@ -37,9 +37,8 @@ bool Font::read(Reader &reader) {
         if (!readTable(reader, tag, info)) return false;
     }
 
-    queue<string> job(move(_job));
-    while (!job.empty()) {
-        string tag = job.front(); job.pop();
+    vector<string> job(move(_job));
+    for (string &tag : job) {
         auto it = _tableInfos.find(tag);
         if (it == _tableInfos.end()) continue;
 
@@ -49,7 +48,7 @@ bool Font::read(Reader &reader) {
         if (!readTable(reader, tag, info)) return false;
     }
 
-    queue<string> temp(move(_job)); // clear
+    _job.clear();
     _open = reader.ok();
     return _open;
 }
