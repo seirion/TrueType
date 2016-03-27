@@ -25,6 +25,7 @@
 #include "tables/maxp.h"
 #include "tables/name.h"
 #include "tables/os_2.h"
+#include "tables/post.h"
 
 using namespace std;
 using namespace babo;
@@ -45,6 +46,7 @@ public:
         if (tag == "cmap") return new cmap();
         if (tag == "name") return new name();
         if (tag == "OS/2") return new os_2();
+        if (tag == "post") return new post();
         return nullptr;
     }
 };

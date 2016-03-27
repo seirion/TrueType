@@ -9,6 +9,7 @@
 #include "tables/maxp.h"
 #include "tables/name.h"
 #include "tables/os_2.h"
+#include "tables/post.h"
 
 using namespace babo;
 
@@ -142,4 +143,19 @@ TEST_F(FontReadingTest, os_2) {
     EXPECT_EQ(table->getUsWidthClass(), 5);
     EXPECT_EQ(table->getFsType(), 0x0008);
     EXPECT_EQ(table->getAchVendID(), "TMC ");
+
+}
+
+TEST_F(FontReadingTest, post) {
+    const post *table = reinterpret_cast<const post *>(Font::instance().getTable("post"));
+
+    EXPECT_EQ(table->getVersion().toString(), "3.0");
+    EXPECT_EQ(table->getItalicAngle().toString(), "0.0");
+    EXPECT_EQ(table->getUnderlinePosition(), -217);
+    EXPECT_EQ(table->getUnderlineThickness(), 150);
+    EXPECT_EQ(table->isFixedPitch(), 0);
+    EXPECT_EQ(table->getMinMemType42(), 0);
+    EXPECT_EQ(table->getMaxMemType42(), 0);
+    EXPECT_EQ(table->getMinMemType1(), 0);
+    EXPECT_EQ(table->getMaxMemType1(), 0);
 }
