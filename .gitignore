@@ -4,3 +4,5 @@
 *.swp
 build/
 a.out
+.idea/
+cmake-build-debug/
