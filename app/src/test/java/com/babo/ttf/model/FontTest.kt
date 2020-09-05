@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class FileInfoTest {
+class FontTest {
     private lateinit var reader: FileReader
     private val font = Font()
 
