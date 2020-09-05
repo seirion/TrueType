@@ -31,6 +31,7 @@ open abstract class Table {
         fun from(tag: String): Table? {
             return when (tag) {
                 "head" -> head()
+                "hhea" -> hhea()
                 else -> null
             }
         }

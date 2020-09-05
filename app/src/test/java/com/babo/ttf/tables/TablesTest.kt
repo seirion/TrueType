@@ -44,6 +44,29 @@ class TablesTest {
         }
     }
 
+    @Test
+    fun `hhea table`() {
+        val hhea = font.tables["hhea"]
+
+        Assertions.assertNotNull(hhea)
+        Assertions.assertTrue(hhea is hhea)
+
+        if (hhea is hhea) {
+            Assertions.assertEquals(0x00010000, hhea.version)
+            Assertions.assertEquals(1854, hhea.ascender)
+            Assertions.assertEquals(-434, hhea.descender)
+            Assertions.assertEquals(67, hhea.lineGap)
+            Assertions.assertEquals(4096, hhea.advanceWidthMax)
+            Assertions.assertEquals(-1361, hhea.minLeftSideBearing)
+            Assertions.assertEquals(-1414, hhea.minRightSideBearing)
+            Assertions.assertEquals(4096, hhea.xMaxExtent)
+            Assertions.assertEquals(1, hhea.caretSlopeRise)
+            Assertions.assertEquals(0, hhea.caretSlopeRun)
+            Assertions.assertEquals(0, hhea.caretOffset)
+            Assertions.assertEquals(0, hhea.metricDataFormat)
+            Assertions.assertEquals(4237, hhea.numberOfHMetrics)
+        }
+    }
     companion object {
         private val PATH = javaClass.getResource("/arial.ttf").path!!
     }
