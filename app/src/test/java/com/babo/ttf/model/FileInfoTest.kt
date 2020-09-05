@@ -2,15 +2,22 @@ package com.babo.ttf.model
 
 import com.babo.ttf.io.FileReader
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class FileInfoTest {
+    private lateinit var reader: FileReader
+    private val font = Font()
+
+    @BeforeEach
+    fun setup() {
+        reader = FileReader(PATH)
+        font.read(reader)
+    }
+
     @Test
     fun `read FontInfo`() {
-        val reader = FileReader(PATH)
-        val fontInfo = FontInfo()
-        fontInfo.read(reader)
-        println(fontInfo)
+        val fontInfo = font.fontInfo
 
         Assertions.assertEquals(0x00010000, fontInfo.sfntVersion)
         Assertions.assertEquals(25, fontInfo.numTables)
