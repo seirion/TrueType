@@ -23,7 +23,7 @@ import com.babo.ttf.io.FileReader
  * 'prep'   control value program
  */
 
-open abstract class Table {
+abstract class Table {
     lateinit var tableInfo: TableInfo
     abstract fun read(reader: FileReader)
 
