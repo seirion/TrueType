@@ -32,6 +32,7 @@ open abstract class Table {
             return when (tag) {
                 "head" -> head()
                 "hhea" -> hhea()
+                "maxp" -> maxp()
                 else -> null
             }
         }

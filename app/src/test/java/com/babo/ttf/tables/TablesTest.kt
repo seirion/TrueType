@@ -67,6 +67,33 @@ class TablesTest {
             Assertions.assertEquals(4237, hhea.numberOfHMetrics)
         }
     }
+
+    @Test
+    fun `maxp table`() {
+        val maxp = font.tables["maxp"]
+
+        Assertions.assertNotNull(maxp)
+        Assertions.assertTrue(maxp is maxp)
+
+        if (maxp is maxp) {
+            Assertions.assertEquals(0x00010000, maxp.version)
+            Assertions.assertEquals(4237, maxp.numGlyphs)
+            Assertions.assertEquals(693, maxp.maxPoints)
+            Assertions.assertEquals(60, maxp.maxContours)
+            Assertions.assertEquals(202, maxp.maxCompositePoints)
+            Assertions.assertEquals(7, maxp.maxCompositeContours)
+            Assertions.assertEquals(2, maxp.maxZones)
+            Assertions.assertEquals(16, maxp.maxTwilightPoints)
+            Assertions.assertEquals(64, maxp.maxStorage)
+            Assertions.assertEquals(134, maxp.maxFunctionDefs)
+            Assertions.assertEquals(0, maxp.maxInstructionDefs)
+            Assertions.assertEquals(1303, maxp.maxStackElements)
+            Assertions.assertEquals(1516, maxp.maxSizeOfInstructions)
+            Assertions.assertEquals(5, maxp.maxComponentElements)
+            Assertions.assertEquals(2, maxp.maxComponentDepth)
+        }
+    }
+
     companion object {
         private val PATH = javaClass.getResource("/arial.ttf").path!!
     }
