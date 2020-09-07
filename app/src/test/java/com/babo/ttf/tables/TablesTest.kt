@@ -94,6 +94,30 @@ class TablesTest {
         }
     }
 
+    @Test
+    fun `cmap table`() {
+        val cmap = font.tables["cmap"]
+
+        Assertions.assertNotNull(cmap)
+        Assertions.assertTrue(cmap is cmap)
+
+        if (cmap is cmap) {
+            Assertions.assertEquals(0, cmap.version)
+            Assertions.assertEquals(3, cmap.numTables)
+
+            Assertions.assertEquals(0, cmap.subTables[0].platformID)
+            Assertions.assertEquals(3, cmap.subTables[0].encodingID)
+            Assertions.assertEquals(1, cmap.subTables[1].platformID)
+            Assertions.assertEquals(0, cmap.subTables[1].encodingID)
+            Assertions.assertEquals(3, cmap.subTables[2].platformID)
+            Assertions.assertEquals(1, cmap.subTables[2].encodingID)
+
+            Assertions.assertEquals(4, cmap.subTables[0].mapping?.format)
+            Assertions.assertEquals(0, cmap.subTables[1].mapping?.format)
+            Assertions.assertEquals(4, cmap.subTables[2].mapping?.format)
+        }
+    }
+
     companion object {
         private val PATH = javaClass.getResource("/arial.ttf").path!!
     }

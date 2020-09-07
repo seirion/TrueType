@@ -30,6 +30,7 @@ abstract class Table {
     companion object {
         fun from(tag: String): Table? {
             return when (tag) {
+                "cmap" -> cmap()
                 "head" -> head()
                 "hhea" -> hhea()
                 "maxp" -> maxp()
