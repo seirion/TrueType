@@ -20,6 +20,10 @@ class FileReader(private val path: String) {
         reader.seek(position)
     }
 
+    fun tell(): Long {
+        return reader.filePointer
+    }
+
     fun getByte(): Byte {
         return reader.read().toByte()
     }

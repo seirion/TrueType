@@ -118,6 +118,23 @@ class TablesTest {
         }
     }
 
+    @Test
+    fun `name table`() {
+        val name = font.tables["name"]
+
+        Assertions.assertNotNull(name)
+        Assertions.assertTrue(name is name)
+
+        if (name is name) {
+            Assertions.assertEquals(0, name.format)
+            Assertions.assertEquals(58, name.count)
+            Assertions.assertEquals("Arial", name.get(reader, 1))
+            Assertions.assertEquals("Regular", name.get(reader, 2))
+            Assertions.assertEquals("Version 6.90", name.get(reader, 5))
+            Assertions.assertEquals("The Monotype Corporation", name.get(reader, 8))
+        }
+    }
+
     companion object {
         private val PATH = javaClass.getResource("/arial.ttf").path!!
     }

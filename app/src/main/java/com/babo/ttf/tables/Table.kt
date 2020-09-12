@@ -34,6 +34,7 @@ abstract class Table {
                 "head" -> head()
                 "hhea" -> hhea()
                 "maxp" -> maxp()
+                "name" -> name()
                 else -> null
             }
         }
