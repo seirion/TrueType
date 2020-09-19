@@ -35,6 +35,7 @@ abstract class Table {
                 "hhea" -> hhea()
                 "maxp" -> maxp()
                 "name" -> name()
+                "OS/2" -> os_2()
                 else -> null
             }
         }

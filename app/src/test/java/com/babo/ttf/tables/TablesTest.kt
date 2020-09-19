@@ -5,6 +5,8 @@ import com.babo.ttf.model.Font
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 
 class TablesTest {
     private lateinit var reader: FileReader
@@ -132,6 +134,23 @@ class TablesTest {
             Assertions.assertEquals("Regular", name.get(reader, 2))
             Assertions.assertEquals("Version 6.90", name.get(reader, 5))
             Assertions.assertEquals("The Monotype Corporation", name.get(reader, 8))
+        }
+    }
+
+    @Test
+    fun `os_2 table`() {
+        val os_2 = font.tables["OS/2"]
+
+        Assertions.assertNotNull(os_2)
+        Assertions.assertTrue(os_2 is os_2)
+
+        if (os_2 is os_2) {
+            Assertions.assertEquals(0x0003, os_2.version)
+            Assertions.assertEquals(904, os_2.xAvgCharWidth)
+            Assertions.assertEquals(400, os_2.usWeightClass)
+            Assertions.assertEquals(5, os_2.usWidthClass)
+            Assertions.assertEquals(0x0008, os_2.fsType)
+            Assertions.assertEquals("TMC ", String(os_2.achVendID, StandardCharsets.US_ASCII))
         }
     }
 
